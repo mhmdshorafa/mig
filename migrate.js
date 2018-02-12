@@ -90,9 +90,9 @@ module.exports = () => {
                   }).save()
                 })
                 Promise.all(p3).then((e) => {
-                  oldDB.query('select * from privatemessagemetadata', {
-                    type: oldDB.QueryTypes.SELECT
-                  }).then((messagesDetails) => {
+                  // oldDB.query('select * from privatemessagemetadata', {
+                  //   type: oldDB.QueryTypes.SELECT
+                  // }).then((messagesDetails) => {
                     console.log('private messages migrated successful');
                     // const p4 = messagesDetails.map((messagedetail) => {
                     //   return Message_properties.build({
@@ -132,7 +132,7 @@ module.exports = () => {
                 //   })
                 // })
               // })
-            })
+            // })
           }).catch((err) => {
             console.log(err);
           })
