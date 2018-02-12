@@ -94,7 +94,22 @@ module.exports = () => {
                     };
                   });
                   Message_properties.bulkCreate(message_propertiesSchema).then(() => {
-                    console.log('migrated successfully');
+                    oldDB.query('select * from privatemessagethreadmetadata', {
+                      type: oldDB.QueryTypes.SELECT
+                    }).then((roomsDetails) => {
+                      const roomsDetailsSchema = roomsDetails.map((roomDetails) => {
+                        return {
+                          id: roomDetails.id,
+                          user_id: roomDetails.participant_id,
+                          room_id: roomDetails.thread_id,
+                          is_deleted: roomDetails.is_deleted,
+                          deleted_at: roomDetails.deleted_at
+                        };
+                      });
+                      Participants.bulkCreate(roomsDetailsSchema).then(() => {
+                        console.log('migrated successfully');
+                      });
+                    });
                   });
                 });
               });
