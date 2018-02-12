@@ -93,19 +93,18 @@ module.exports = () => {
                   oldDB.query('select * from privatemessagemetadata', {
                     type: oldDB.QueryTypes.SELECT
                   }).then((messagesDetails) => {
-                    const p4 = messagesDetails.map((messagedetail) => {
-                      return Message_properties.build({
-                        id: messagedetail.id,
-                        user_id: messagedetail.participant_id,
-                        message_id: messagedetail.message_id,
-                        is_read: messagedetail.is_read,
-                        is_deleted: messagedetail.body,
-                        deleted_at: messagedetail.deleted_at
-                      }).save()
-                    })
+                    console.log('private messages migrated successful');
+                    // const p4 = messagesDetails.map((messagedetail) => {
+                    //   return Message_properties.build({
+                    //     user_id: messagedetail.participant_id,
+                    //     message_id: messagedetail.message_id,
+                    //     is_read: messagedetail.is_read,
+                    //     is_deleted: messagedetail.body,
+                    //     deleted_at: messagedetail.deleted_at
+                    //   }).save()
+                    // })
 
-                    Promise.all(p4).then((e) => {
-                      console.log('private messages migrated successful');
+                    // Promise.all(p4).then((e) => {
                       // oldDB.query('select * from privatemessagethreadmetadata', {
                       //   type: oldDB.QueryTypes.SELECT
                       // }).then((roomsDetails) => {
@@ -132,8 +131,10 @@ module.exports = () => {
                 //     })
                 //   })
                 // })
-              })
+              // })
             })
+          }).catch((err) => {
+            console.log(err);
           })
         // })
     //   }).catch((err) => {
