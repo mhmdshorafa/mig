@@ -106,8 +106,24 @@ module.exports = () => {
                           deleted_at: roomDetails.deleted_at
                         };
                       });
+
+                      const toUpdateRoom = roomsDetails.map((roomDetails) => {
+                        return {
+                          id: roomDetails.thread_id,
+                          last_message_date: roomDetails.last_message_date
+                        };
+                      });
+
+
                       Participants.bulkCreate(roomsDetailsSchema).then(() => {
-                        console.log('migrated successfully');
+                        const updatePromises = toUpdateRoom.map((ro) => {
+                          return Rooms.update(
+                            { last_message_date: ro.last_message_date },
+                            { where: { id: ro.thread_id } })
+                        })
+                        Promise.all(updatePromises).then(() => {
+                          console.log('migrated successfully');
+                        })
                       });
                     });
                   });
