@@ -1,0 +1,16 @@
+{
+  "name": "migration-pm",
+  "version": "1.0.0",
+  "description": "",
+  "main": "migrate.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^5.0.0",
+    "pg": "^7.4.0",
+    "sequelize": "^4.28.6"
+  }
+}
