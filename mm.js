@@ -52,55 +52,55 @@ module.exports = () => {
         };
       });
       Users.bulkCreate(userSchema).then(() => {
-        // oldDB.query('select * from privatemessagethread', {
-        //   type: oldDB.QueryTypes.SELECT
-        // }).then((rooms) => {
-        //   const roomSchema = rooms.map((room) => {
-        //     return {
-        //       id: room.id,
-        //       user_id: room.createdby_id,
-        //       isspam: room.isspam,
-        //       subject: room.subject,
-        //       last_message: room.subject,
-        //       last_message_date: room.updated_at,
-        //       createdAt: room.updated_at
-        //     };
-        //   });
-        //   Rooms.bulkCreate(roomSchema).then(() => {
-        //
-        //     oldDB.query('select * from privatemessage', {
-        //       type: oldDB.QueryTypes.SELECT
-        //     }).then((messages) => {
-        //       const messageSchema = messages.map((message) => {
-        //         return { id: message.id,
-        //           user_id: message.sender_id,
-        //           room_id: message.thread_id,
-        //           message: message.body,
-        //           createdAt: message.created_at
-        //         };
-        //       });
-        //       Messages.bulkCreate(messageSchema).then(() => {
-        //         oldDB.query('select * from privatemessagemetadata', {
-        //           type: oldDB.QueryTypes.SELECT
-        //         }).then((messages_properties) => {
-        //           const message_propertiesSchema = messages_properties.map((messages_propertie) => {
-        //             return {
-        //               id: messages_propertie.id,
-        //               user_id: messages_propertie.participant_id,
-        //               message_id: messages_propertie.message_id,
-        //               is_read: messages_propertie.is_read,
-        //               is_deleted: messages_propertie.body,
-        //               deleted_at: messages_propertie.deleted_at
-        //             };
-        //           });
-        //           Message_properties.bulkCreate(message_propertiesSchema).then(() => {
-        //             console.log('migrated successfully');
-        //           });
-        //         });
-        //       });
-        //     });
-        //   });
-        // });
+        oldDB.query('select * from privatemessagethread', {
+          type: oldDB.QueryTypes.SELECT
+        }).then((rooms) => {
+          const roomSchema = rooms.map((room) => {
+            return {
+              id: room.id,
+              user_id: room.createdby_id,
+              isspam: room.isspam,
+              subject: room.subject,
+              last_message: room.subject,
+              last_message_date: room.updated_at,
+              createdAt: room.updated_at
+            };
+          });
+          Rooms.bulkCreate(roomSchema).then(() => {
+
+            oldDB.query('select * from privatemessage', {
+              type: oldDB.QueryTypes.SELECT
+            }).then((messages) => {
+              const messageSchema = messages.map((message) => {
+                return { id: message.id,
+                  user_id: message.sender_id,
+                  room_id: message.thread_id,
+                  message: message.body,
+                  createdAt: message.created_at
+                };
+              });
+              Messages.bulkCreate(messageSchema).then(() => {
+                oldDB.query('select * from privatemessagemetadata', {
+                  type: oldDB.QueryTypes.SELECT
+                }).then((messages_properties) => {
+                  const message_propertiesSchema = messages_properties.map((messages_propertie) => {
+                    return {
+                      id: messages_propertie.id,
+                      user_id: messages_propertie.participant_id,
+                      message_id: messages_propertie.message_id,
+                      is_read: messages_propertie.is_read,
+                      is_deleted: messages_propertie.body,
+                      deleted_at: messages_propertie.deleted_at
+                    };
+                  });
+                  Message_properties.bulkCreate(message_propertiesSchema).then(() => {
+                    console.log('migrated successfully');
+                  });
+                });
+              });
+            });
+          });
+        });
       });
     });
   });
