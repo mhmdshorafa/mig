@@ -85,6 +85,7 @@ return new Promise((resolve, reject) => {
             }).then((messages_properties) => {
       const message_propertiesSchema = messages_properties.map((messages_propertie) => {
         return {
+          id: messagedetail.id
           user_id: messagedetail.participant_id,
           message_id: messagedetail.message_id,
           is_read: messagedetail.is_read,
@@ -96,6 +97,7 @@ return new Promise((resolve, reject) => {
         console.log('migrated successfully');
       })
     })
+  })
   });
 });
 });
