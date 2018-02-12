@@ -78,7 +78,7 @@ module.exports = () => {
         //     })
 
             // Promise.all(p2).then((e) => {
-              oldDB.query('select * from privatemessage', {
+              oldDB.query('select * from privatemessage where id< 3600', {
                 type: oldDB.QueryTypes.SELECT
               }).then((messages) => {
                 const p3 = messages.map((message) => {
